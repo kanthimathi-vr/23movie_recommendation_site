@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="movie-detail">
+    <img src="{{ url_for('static', filename=movie.poster) }}" alt="{{ movie.title }}">
+    <div>
+        <h2>{{ movie.title }}</h2>
+        <p class="genre">{{ movie.genre }}</p>
+        <p>{{ movie.description }}</p>
+    </div>
+</div>
+
+<hr>
+
+<section class="recommendations">
+    <h3>Recommend a Similar Movie</h3>
+    <form method="POST">
+        <input type="text" name="recommendation" placeholder="Movie Title..." required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if recs %}
+    <h4>Recommendations:</h4>
+    <ul>
+        {% for r in recs %}
+        <li>{{ r }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No recommendations yet.</p>
+    {% endif %}
+</section>
+
+<a href="{{ url_for('home') }}" class="back-link">⬅ Back to Home</a>
+{% endblock %}

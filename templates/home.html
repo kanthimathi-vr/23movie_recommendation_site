@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Browse Movies</h2>
+
+<form method="GET" action="{{ url_for('home') }}" class="genre-form">
+    <label for="genre">Filter by Genre:</label>
+    <select name="genre" id="genre" onchange="this.form.submit()">
+        <option value="">All</option>
+        {% for g in genres %}
+        <option value="{{ g }}" {% if selected_genre == g %}selected{% endif %}>{{ g }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div class="movie-grid">
+    {% for movie in movies %}
+    <a href="{{ url_for('movie_detail', movie_id=movie.id) }}" class="movie-card">
+        <img src="{{ url_for('static', filename=movie.poster) }}" alt="{{ movie.title }}">
+        <h3>{{ movie.title }}</h3>
+        <p class="genre">{{ movie.genre }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
